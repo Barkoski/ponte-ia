@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'">
+<title>Ponte IA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <span class="brand"><span class="dot c"></span><span class="dot g"></span> Ponte IA</span>
+
+  <label class="f">Modo
+    <select id="mode">
+      <option value="parallel">Paralelo — os dois respondem</option>
+      <option value="debate">Debate — Claude → crítica do GPT → réplica</option>
+      <option value="consensus">Consenso — respondem e um sintetiza</option>
+      <option value="claude">Só Claude</option>
+      <option value="gpt">Só ChatGPT</option>
+    </select>
+  </label>
+
+  <label class="f">Síntese por
+    <select id="synth">
+      <option value="claude">Claude</option>
+      <option value="gpt">ChatGPT</option>
+    </select>
+  </label>
+
+  <span class="spacer"></span>
+  <span class="pill" id="status">pronto</span>
+  <button class="ghost" id="btnNova" title="Nova conversa (Ctrl+N)">Nova</button>
+  <button class="ghost" id="btnExport" title="Exportar em Markdown (Ctrl+E)">Exportar</button>
+  <button id="btnCfg" title="Configurações (Ctrl+,)">Configurações</button>
+</header>
+
+<main id="main">
+  <div class="wrap" id="conv"></div>
+  <div class="wrap" id="followup"></div>
+</main>
+
+<footer>
+  <div class="comp">
+    <div id="pend"></div>
+    <textarea id="input" placeholder="Escreva aqui — a mensagem vai para os dois modelos.&#10;Ctrl+Enter envia."></textarea>
+    <div class="row">
+      <button class="ghost" id="btnImg">+ Imagem</button>
+      <button class="ghost" id="btnPdf">+ PDF</button>
+      <input type="file" id="fImg" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+      <input type="file" id="fPdf" accept="application/pdf" multiple hidden>
+      <span class="hint" id="hint"></span>
+      <span class="spacer"></span>
+      <button class="ghost oculto" id="btnStop">Parar</button>
+      <button class="primary" id="btnSend">Enviar</button>
+    </div>
+  </div>
+</footer>
+
+<div class="ov" id="ov">
+<div class="modal">
+  <h2>Configurações</h2>
+  <div class="sub">Fica tudo neste computador. Nada é enviado a servidor nenhum além das próprias chamadas de API.</div>
+
+  <div class="warn" id="segAviso"></div>
+
+  <div class="grid2">
+    <div class="fld">
+      <label>Chave da Anthropic (Claude)</label>
+      <input type="password" id="kAnthropic" placeholder="sk-ant-...">
+      <div class="h">console.anthropic.com → API Keys</div>
+    </div>
+    <div class="fld">
+      <label>Chave da OpenAI (ChatGPT)</label>
+      <input type="password" id="kOpenai" placeholder="sk-...">
+      <div class="h">platform.openai.com → API keys</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="fld">
+    <label>Modelo Claude</label>
+    <div class="inline">
+      <select id="mClaude"></select>
+      <button class="ghost" id="btnLoadC">Buscar</button>
+    </div>
+    <div class="h">"Buscar" lê a lista real de modelos liberados na sua conta.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="fld">
+      <label>Esforço / profundidade (Claude)</label>
+      <select id="effort">
+        <option value="low">low — rápido e barato</option>
+        <option value="medium">medium</option>
+        <option value="high">high — padrão</option>
+        <option value="xhigh">xhigh — mais fundo</option>
+        <option value="max">max — máximo</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label>Raciocínio estendido</label>
+      <select id="thinking">
+        <option value="summarized">ligado, com resumo visível</option>
+        <option value="omitted">ligado, sem exibir</option>
+        <option value="disabled">desligado</option>
+      </select>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="fld">
+    <label>Modelo OpenAI</label>
+    <div class="inline">
+      <select id="mGpt"></select>
+      <button class="ghost" id="btnLoadG">Buscar</button>
+    </div>
+  </div>
+  <div class="fld">
+    <label>…ou nome do modelo OpenAI escrito à mão</label>
+    <input type="text" id="mGptManual" placeholder="deixe vazio para usar a lista acima">
+  </div>
+
+  <hr class="sep">
+
+  <div class="fld">
+    <label>Instrução comum aos dois (system prompt)</label>
+    <textarea id="sysPrompt" rows="5"></textarea>
+    <div class="h">Vale para Claude e ChatGPT. Aqui você define contexto, área de atuação e formato de resposta.</div>
+  </div>
+
+  <div class="fld chk">
+    <input type="checkbox" id="persist">
+    <label for="persist" class="leve">Guardar a conversa entre uma sessão e outra</label>
+  </div>
+
+  <div class="acts">
+    <button class="ghost" id="btnWipe">Apagar chaves e dados</button>
+    <span class="spacer"></span>
+    <button class="ghost" id="btnCancel">Fechar</button>
+    <button class="primary" id="btnSave">Salvar</button>
+  </div>
+
+  <div class="foot" id="infoRodape"></div>
+</div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
