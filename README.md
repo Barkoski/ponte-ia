@@ -9,6 +9,7 @@
 App de mesa para Windows, feito em Electron.
 
 ![Electron](https://img.shields.io/badge/Electron-43-2B2E3A)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-1.1.0-4C8577)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-4C8577)
 ![Plataforma](https://img.shields.io/badge/Windows-x64-B5714E)
 
@@ -70,10 +71,11 @@ que marcar como não verificado em vez de aceitar por educação.
 
 Três decisões que moldam o resto:
 
-**A interface nunca vê as chaves.** Ela pede `{provider, body}` ao processo
-principal, que resolve a credencial na hora. Ela também não sabe o formato de
-nenhuma das duas APIs: o SSE da Anthropic e o da OpenAI são traduzidos para o
-mesmo par de eventos (`text`, `think`) antes de chegar na tela.
+**As chaves salvas nunca voltam para a interface.** Ao salvar uma nova chave, ela
+atravessa a ponte uma única vez e é imediatamente criptografada pelo processo
+principal. Nas chamadas seguintes, a interface pede `{provider, body}` e o
+processo principal resolve a credencial na hora. O SSE da Anthropic e o da
+OpenAI é traduzido para os mesmos eventos antes de chegar na tela.
 
 **Nada de modelo escrito na unha.** O app consulta `GET /v1/models` nos dois
 provedores e monta as listas com o que a sua conta realmente libera — o que
@@ -87,22 +89,29 @@ alternância que as APIs exigem.
 ## Privacidade
 
 - As chaves são gravadas com `safeStorage`, a criptografia do Windows —
-  legíveis apenas pela conta de usuário que as salvou. Há um teste automatizado
-  que lê o arquivo em disco e falha se a chave aparecer em texto claro.
+  legíveis apenas pela conta de usuário que as salvou. Se essa proteção não
+  estiver disponível, o app se recusa a gravar uma chave em texto claro.
 - Conversas ficam em `%APPDATA%\Ponte IA`, no seu computador.
-- A janela roda com `contextIsolation`, sem `nodeIntegration`, e uma CSP que não
-  permite script nem estilo inline.
-- **O texto que você digita é enviado à Anthropic e à OpenAI** para gerar as
-  respostas — é o que o app faz. Não use para conteúdo sigiloso.
+- A janela roda em sandbox, com `contextIsolation`, sem `nodeIntegration`, com
+  IPC validado e uma CSP que não permite script nem estilo inline.
+- O app envia mensagens e anexos apenas ao provedor ou aos provedores escolhidos
+  no modo da conversa. Na OpenAI, cada chamada inclui `store: false`.
+- Os provedores ainda podem aplicar as próprias políticas de retenção e
+  monitoramento. Não envie dados sigilosos sem avaliar essas políticas.
+
+## Instalação no Windows
+
+Baixe o instalador ou a versão portátil na página de
+[releases](https://github.com/Barkoski/ponte-ia/releases).
 
 ## Rodando
 
-Precisa de Node 18+ e Windows x64.
+Para desenvolver ou gerar o pacote, use Node 22.12+ e Windows x64.
 
 ```bash
-git clone https://github.com/SEU-USUARIO/ponte-ia.git
+git clone https://github.com/Barkoski/ponte-ia.git
 cd ponte-ia
-npm install
+npm ci
 npm start
 ```
 
@@ -132,15 +141,14 @@ separados e nenhum dos dois libera acesso de API.
 ## Testes
 
 ```bash
-npx electron tools/smoke.js
+npm test
 ```
 
 Não é teste de unidade com mock — o script **sobe o aplicativo de verdade** e
-roda 33 verificações dentro da janela aberta: se a janela carregou sem erro de
-console, se o Node continua fora do alcance da interface, se o markdown escapa
-HTML, se cada modelo enxerga a resposta do outro corretamente rotulada, se o
-corpo montado para a API tem a forma esperada, e se a chave gravada em disco
-está mesmo ilegível.
+roda mais de 30 verificações dentro de uma janela e de um perfil temporário:
+carregamento sem erro de console, sandbox, isolamento do Node, escape de HTML,
+rotulagem da resposta do outro modelo, anexos para as duas APIs, segredo ausente
+do retorno à interface e criptografia no arquivo.
 
 Dois defeitos reais que esses testes pegaram durante o desenvolvimento: a CSP
 bloqueando estilos aplicados por código (o painel de raciocínio nunca teria
@@ -165,10 +173,14 @@ tools/
 
 - Só Windows. Nada no código impede macOS ou Linux, mas não foi testado nem
   empacotado para eles.
-- PDF vai apenas para o Claude, como bloco `document`; o ChatGPT recebe um aviso
-  textual de que o arquivo existe. Imagens vão para os dois.
+- PDFs e imagens vão aos dois provedores. A aceitação final depende do modelo
+  escolhido e dos limites da conta.
 - Uma conversa por vez. Não há histórico de sessões anteriores — só exportação
   em Markdown.
+- Até 5 anexos por mensagem, 20 MB por arquivo e 40 MB no total. A conversa
+  local é limitada a 60 MB.
+- Os executáveis publicados ainda não têm assinatura de código; o Windows pode
+  exibir um aviso do SmartScreen.
 
 ---
 
@@ -182,12 +194,10 @@ each model read and critique the other's response.
 Four modes: parallel, debate (Claude → GPT critique → Claude rebuttal),
 consensus (both answer, one synthesizes), and single-model.
 
-Built with Electron. API keys are encrypted with the Windows `safeStorage` API;
-all HTTP happens in the main process, so the renderer never sees a credential
-and never learns either provider's wire format. Model lists are fetched from
-each provider's `/v1/models` rather than hardcoded. Integration tests boot the
-real app and assert 33 behaviours inside the live window, including that the
-key on disk is unreadable.
+Built with Electron. Saved API keys are encrypted with the Windows `safeStorage`
+API and are not returned to the renderer. HTTP happens in the main process.
+Model lists are fetched from each provider's `/v1/models` rather than hardcoded.
+Integration tests boot the real app with an isolated temporary profile.
 
 Requires paid API keys from Anthropic and OpenAI — consumer Claude.ai and
 ChatGPT Plus subscriptions do not grant API access.
