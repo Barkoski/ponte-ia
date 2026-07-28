@@ -1,0 +1,20 @@
+# dependências e artefatos de build
+node_modules/
+dist/
+out/
+
+# sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# logs e temporários
+*.log
+npm-debug.log*
+
+# nunca versionar credenciais — no app elas ficam em %APPDATA%\Ponte IA,
+# fora do repositório, mas a regra fica aqui de propósito
+config.json
+conversa.json
+.env
+*.key
