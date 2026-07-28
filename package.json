@@ -19,7 +19,7 @@
     "icon": "node tools/make-icon.js",
     "check": "node --check src/main.js && node --check src/preload.js && node --check src/renderer.js && node --check tools/smoke.js",
     "test": "electron tools/smoke.js",
-    "dist": "electron-builder --win"
+    "dist": "electron-builder --win --publish never"
   },
   "engines": {
     "node": ">=22.12.0"
