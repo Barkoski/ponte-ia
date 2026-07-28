@@ -1,0 +1,68 @@
+{
+  "name": "ponte-ia",
+  "version": "1.0.0",
+  "description": "Claude e ChatGPT na mesma conversa — e um lendo a resposta do outro",
+  "keywords": [
+    "electron",
+    "claude",
+    "chatgpt",
+    "anthropic",
+    "openai",
+    "llm",
+    "desktop"
+  ],
+  "author": "Lucas Barkoski",
+  "license": "MIT",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "icon": "node tools/make-icon.js",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.barkoski.ponteia",
+    "productName": "Ponte IA",
+    "copyright": "Lucas Barkoski",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "portable": {
+      "artifactName": "Ponte IA (portatil).exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Ponte IA",
+      "artifactName": "Ponte IA - instalador.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3"
+  }
+}
