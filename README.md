@@ -1,23 +1,43 @@
-<div align="center">
+<p align="center">
+  <img src="assets/banner.svg" alt="Ponte IA — Dois modelos na conversa. Cada resposta pode ser confrontada." width="100%">
+</p>
 
-<img src="build/icon.png" width="120" alt="Ponte IA">
+<p align="center">
+<img alt="Versão 1.1.0" src="https://img.shields.io/badge/Vers%C3%A3o%201.1.0-67889d">
+<img alt="Windows x64" src="https://img.shields.io/badge/Windows%20x64-67889d">
+<img alt="MIT" src="https://img.shields.io/badge/MIT-67889d">
+</p>
 
-# Ponte IA
+# 🌉 Ponte IA
 
-**Claude e ChatGPT na mesma conversa — e um lendo a resposta do outro.**
+> **Claude e ChatGPT na mesma conversa**, com respostas paralelas, debate, crítica cruzada e síntese sob seu comando.
 
-App de mesa para Windows, feito em Electron.
+Criado por **[Lucas Barkoski](https://github.com/Barkoski)**.
 
-![Electron](https://img.shields.io/badge/Electron-43-2B2E3A)
-![Versão](https://img.shields.io/badge/vers%C3%A3o-1.1.0-4C8577)
-![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-4C8577)
-![Plataforma](https://img.shields.io/badge/Windows-x64-B5714E)
+**Explore:** [📚 Documentação](#documentacao) · [⚡ Primeiro uso no Windows](#secao-1) · [🔎 O problema](#secao-2) · [📌 Modos de conversa](#secao-3) · [🔒 Privacidade](#secao-5) · [🚀 Instalação no Windows](#secao-6) · [🗂️ Estrutura](#secao-9)
 
-</div>
+<p align="center">
+  <img src="assets/fluxo.svg" alt="Fazer a pergunta → Ouvir os modelos → Cruzar respostas → Decidir o próximo passo" width="100%">
+</p>
 
----
+Aplicativo de mesa em Electron, voltado a Windows x64. Mensagens e anexos são processados pelos provedores escolhidos, conforme as condições da sua conta.
 
-## O problema
+<a id="secao-1"></a>
+## ⚡ Primeiro uso no Windows
+
+1. Abra [Releases](https://github.com/Barkoski/ponte-ia/releases) e escolha o instalador ou a versão portátil disponível.
+2. Configure as chaves dos provedores que pretende utilizar.
+3. Comece com uma pergunta sobre material público e experimente a análise cruzada.
+
+```text
+Compare as opções que descrevi. Separe fatos e hipóteses. Depois,
+critique a resposta do outro modelo e diga o que você mantém ou revisa.
+```
+
+As APIs podem ter cobrança por uso. O aplicativo não inclui créditos; confirme as condições da sua conta. Concordância entre modelos não comprova uma informação.
+
+<a id="secao-2"></a>
+## 🔎 O problema
 
 Quando a pergunta é difícil, a resposta de um único modelo é um ponto de vista
 só. Perguntar aos dois ajuda — mas na prática vira um vaivém manual de copiar e
@@ -28,7 +48,8 @@ O Ponte IA faz esse trabalho: manda a mesma pergunta para os dois, mostra as
 respostas lado a lado e, com um clique, faz cada um **ler e criticar** a
 resposta do outro.
 
-## Modos de conversa
+<a id="secao-3"></a>
+## 📌 Modos de conversa
 
 | Modo | O que acontece |
 |---|---|
@@ -51,7 +72,8 @@ e o que revisa na própria resposta depois de ler. Fecha com uma trava contra
 concordância automática — se o outro afirmou algo que não dá para verificar, tem
 que marcar como não verificado em vez de aceitar por educação.
 
-## Como funciona por dentro
+<a id="secao-4"></a>
+## ✨ Como funciona por dentro
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -86,7 +108,8 @@ do ponto de vista dele: as próprias falas como `assistant`, as do outro como
 `user` com um rótulo explícito, e turnos consecutivos fundidos para respeitar a
 alternância que as APIs exigem.
 
-## Privacidade
+<a id="secao-5"></a>
+## 🔒 Privacidade
 
 - As chaves são gravadas com `safeStorage`, a criptografia do Windows —
   legíveis apenas pela conta de usuário que as salvou. Se essa proteção não
@@ -99,12 +122,14 @@ alternância que as APIs exigem.
 - Os provedores ainda podem aplicar as próprias políticas de retenção e
   monitoramento. Não envie dados sigilosos sem avaliar essas políticas.
 
-## Instalação no Windows
+<a id="secao-6"></a>
+## 🚀 Instalação no Windows
 
 Baixe o instalador ou a versão portátil na página de
 [releases](https://github.com/Barkoski/ponte-ia/releases).
 
-## Rodando
+<a id="secao-7"></a>
+## 🚀 Rodando
 
 Para desenvolver ou gerar o pacote, use Node 22.12+ e Windows x64.
 
@@ -138,7 +163,8 @@ O app precisa de duas chaves, cobradas por uso:
 Assinaturas do Claude.ai e do ChatGPT Plus **não servem**: são produtos
 separados e nenhum dos dois libera acesso de API.
 
-## Testes
+<a id="secao-8"></a>
+## ✅ Testes
 
 ```bash
 npm test
@@ -155,7 +181,8 @@ bloqueando estilos aplicados por código (o painel de raciocínio nunca teria
 aparecido) e um escape de barra invertida que fazia todo bloco de código sair
 cru na tela.
 
-## Estrutura
+<a id="secao-9"></a>
+## 🗂️ Estrutura
 
 ```
 src/
@@ -169,7 +196,8 @@ tools/
   smoke.js      testes de integração com o app rodando
 ```
 
-## Limitações conhecidas
+<a id="secao-10"></a>
+## 📌 Limitações conhecidas
 
 - Só Windows. Nada no código impede macOS ou Linux, mas não foi testado nem
   empacotado para eles.
@@ -205,3 +233,12 @@ ChatGPT Plus subscriptions do not grant API access.
 MIT licensed.
 
 </details>
+
+<a id="documentacao"></a>
+## 📚 Links para continuar
+
+- [Mudanças por versão](CHANGELOG.md)
+- [Processo principal](src/main.js)
+- [Ponte da interface](src/preload.js)
+- [Interface](src/renderer.js)
+- [Verificações de integração](tools/smoke.js)
