@@ -10,70 +10,113 @@
 
 # 🌉 Ponte IA
 
-> **Claude e ChatGPT na mesma conversa**, com respostas paralelas, debate, crítica cruzada e síntese sob seu comando.
+> **Claude e ChatGPT na mesma conversa.** Um lê e critica a resposta do outro, e você decide o próximo passo.
 
 Criado por **[Lucas Barkoski](https://github.com/Barkoski)**.
 
-**Explore:** [📚 Documentação](#documentacao) · [⚡ Primeiro uso no Windows](#secao-1) · [🔎 O problema](#secao-2) · [📌 Modos de conversa](#secao-3) · [🔒 Privacidade](#secao-5) · [🚀 Instalação no Windows](#secao-6) · [🗂️ Estrutura](#secao-9)
+**Explore:** [⚡ Primeiro uso](#primeiro-uso) · [📌 Modos](#modos) · [🔑 Chaves de API](#chaves) · [🔒 Privacidade](#privacidade) · [🚧 Limitações](#limitacoes) · [🛠️ Para desenvolvedores](#desenvolvedores)
 
 <p align="center">
   <img src="assets/fluxo.svg" alt="Fazer a pergunta → Ouvir os modelos → Cruzar respostas → Decidir o próximo passo" width="100%">
 </p>
 
-Aplicativo de mesa em Electron, voltado a Windows x64. Mensagens e anexos são processados pelos provedores escolhidos, conforme as condições da sua conta.
+## 🌉 O que é
 
-<a id="secao-1"></a>
-## ⚡ Primeiro uso no Windows
+O Ponte IA é um aplicativo para Windows que manda a mesma pergunta ao **Claude** (Anthropic) e ao **ChatGPT** (modelos GPT da OpenAI), mostra as duas respostas e, com um clique, faz cada um **ler e criticar** a resposta do outro. Acaba o vaivém de copiar e colar entre duas janelas.
 
-1. Abra [Releases](https://github.com/Barkoski/ponte-ia/releases) e escolha o instalador ou a versão portátil disponível.
-2. Configure as chaves dos provedores que pretende utilizar.
-3. Comece com uma pergunta sobre material público e experimente a análise cruzada.
+**Para quem é:** quem já usa as duas IAs e quer comparar respostas em perguntas difíceis, sem confiar em um único ponto de vista.
+
+O app conversa com as duas empresas pela API delas. Por isso você precisa das suas próprias chaves de API, que são cobradas por uso (veja [Chaves de API](#chaves)).
+
+<a id="primeiro-uso"></a>
+## ⚡ Primeiro uso
+
+1. Abra a página de [Releases](https://github.com/Barkoski/ponte-ia/releases) e baixe uma das opções:
+   - **Ponte IA - instalador.exe** (instala no computador), ou
+   - **Ponte IA (portatil).exe** (roda sem instalar).
+2. Abra o app. Na primeira vez, a tela de **Configurações** abre sozinha. Cole as chaves de API (atalho para voltar a ela: `Ctrl+,`).
+3. Escolha o modo no topo da janela, escreva a pergunta e envie (`Ctrl+Enter`).
+
+Para começar, teste com um assunto público:
 
 ```text
 Compare as opções que descrevi. Separe fatos e hipóteses. Depois,
 critique a resposta do outro modelo e diga o que você mantém ou revisa.
 ```
 
-As APIs podem ter cobrança por uso. O aplicativo não inclui créditos; confirme as condições da sua conta. Concordância entre modelos não comprova uma informação.
+Os executáveis ainda **não têm assinatura de código**, então o Windows pode mostrar um aviso do SmartScreen. Para conferir se o download está íntegro, use o arquivo `SHA256SUMS.txt` publicado junto.
 
-<a id="secao-2"></a>
-## 🔎 O problema
-
-Quando a pergunta é difícil, a resposta de um único modelo é um ponto de vista
-só. Perguntar aos dois ajuda — mas na prática vira um vaivém manual de copiar e
-colar entre duas janelas, e nenhum dos dois chega a ver o que o outro
-respondeu.
-
-O Ponte IA faz esse trabalho: manda a mesma pergunta para os dois, mostra as
-respostas lado a lado e, com um clique, faz cada um **ler e criticar** a
-resposta do outro.
-
-<a id="secao-3"></a>
+<a id="modos"></a>
 ## 📌 Modos de conversa
 
 | Modo | O que acontece |
 |---|---|
-| **Paralelo** | A mesma pergunta vai aos dois ao mesmo tempo. Nenhum vê o outro. |
-| **Debate** | Claude responde → ChatGPT lê, critica e dá a versão dele → Claude replica ponto a ponto. |
-| **Consenso** | Os dois respondem em paralelo, depois um deles sintetiza: onde concordam, onde divergem, resposta final. |
-| **Individual** | Só um dos dois, quando você não precisa dos dois. |
+| **Paralelo** | A pergunta vai aos dois ao mesmo tempo. Nenhum vê a resposta do outro. |
+| **Debate** | Claude responde → ChatGPT lê, critica e dá a versão dele → Claude responde à crítica, ponto a ponto. |
+| **Consenso** | Os dois respondem em paralelo. Depois, um deles (você escolhe qual, em "Síntese por") faz a síntese: onde concordam, onde divergem e a resposta final. |
+| **Só Claude** / **Só ChatGPT** | Apenas um dos dois responde. |
 
-Terminada qualquer rodada, aparece uma barra de acompanhamento:
+Depois de cada rodada, aparece uma barra com os próximos passos possíveis:
 
 ```
 e agora:  [⇄ cada um analisa o outro]  [→ Claude analisa]  [→ ChatGPT analisa]  [⚖ síntese]
 ```
 
-Nada dispara sozinho — você lê as respostas e decide o próximo passo.
+Nada dispara sozinho. Você lê as respostas e decide.
 
-O prompt de análise cruzada é deliberadamente adversarial: pede onde o outro
-acertou (em uma linha), onde errou ou omitiu, onde discorda **com fundamento**,
-e o que revisa na própria resposta depois de ler. Fecha com uma trava contra
-concordância automática — se o outro afirmou algo que não dá para verificar, tem
-que marcar como não verificado em vez de aceitar por educação.
+A análise cruzada é feita para ser crítica: cada modelo diz onde o outro acertou, onde errou ou omitiu, onde discorda (com fundamento) e o que revisa na própria resposta. Se o outro afirmou algo que não dá para verificar, deve marcar como não verificado, em vez de concordar por educação.
 
-<a id="secao-4"></a>
-## ✨ Como funciona por dentro
+**Outros recursos:** anexar imagens e PDFs (vão aos dois modelos), definir uma instrução comum aos dois nas Configurações, exportar a conversa em Markdown (`Ctrl+E`) e começar uma nova conversa (`Ctrl+N`).
+
+<a id="chaves"></a>
+## 🔑 Chaves de API
+
+- **Anthropic (Claude):** [console.anthropic.com](https://console.anthropic.com) → API Keys
+- **OpenAI (ChatGPT):** [platform.openai.com](https://platform.openai.com) → API keys
+
+Para os modos com os dois modelos, você precisa das duas chaves. Com uma só, funciona apenas o modo "Só" daquele modelo.
+
+As APIs são cobradas por uso, e o app não inclui créditos. Assinaturas do Claude.ai e do ChatGPT Plus **não servem**: são produtos separados e não dão acesso à API.
+
+A lista de modelos não é fixa. O app consulta cada empresa e mostra os modelos que a sua conta libera.
+
+<a id="privacidade"></a>
+## 🔒 Privacidade e segurança
+
+- **O que sai do seu computador:** mensagens e anexos vão só para a empresa (ou as empresas) do modo escolhido. Nas chamadas à OpenAI, o app pede para a resposta não ser armazenada (`store: false`).
+- **O que fica com as empresas:** Anthropic e OpenAI ainda aplicam as próprias regras de retenção e monitoramento. **Não envie dados sigilosos sem avaliar essas regras.**
+- **Chaves:** ficam gravadas com a criptografia do Windows (`safeStorage`) e só a sua conta de usuário consegue lê-las. Se essa proteção não estiver disponível, o app se recusa a gravar a chave. Depois de salva, a chave não volta para a tela.
+- **Conversa:** fica no seu computador, na pasta de dados do app dentro do seu perfil do Windows (`%APPDATA%`). Dá para desligar o salvamento entre sessões nas Configurações. O botão **Apagar chaves e dados** remove chaves, configurações e histórico.
+- **Proteções da janela:** a interface roda isolada (sandbox), sem acesso ao Node nem a arquivos, com validação das mensagens internas e uma política de conteúdo que bloqueia scripts e estilos embutidos.
+
+Para relatar uma falha de segurança, veja [SECURITY.md](SECURITY.md).
+
+<a id="limitacoes"></a>
+## 🚧 Limitações conhecidas
+
+- **Só Windows x64.** Nada no código impede macOS ou Linux, mas não foi testado nem empacotado para eles.
+- **Concordância não é prova.** Os dois modelos podem errar juntos. Confira o que for importante.
+- **Anexos:** até 5 por mensagem, 20 MB por arquivo e 40 MB no total. Se o modelo escolhido aceita o arquivo, depende dele e dos limites da sua conta.
+- **Uma conversa por vez.** Não há lista de conversas antigas. Para guardar, exporte em Markdown. A conversa salva no computador tem limite de 60 MB.
+- **Sem assinatura de código:** o Windows pode exibir o aviso do SmartScreen.
+
+<a id="desenvolvedores"></a>
+## 🛠️ Para desenvolvedores
+
+Aplicativo em Electron. Requer Node 22.12 ou mais novo e Windows x64.
+
+```bash
+git clone https://github.com/Barkoski/ponte-ia.git
+cd ponte-ia
+npm ci
+npm start        # abre o app
+npm test         # testes de integração com o app rodando
+npm run dist     # gera instalador e versão portátil em dist/
+npm run icon     # gera o ícone por código, sem dependências
+```
+
+<details>
+<summary><b>Como funciona por dentro</b></summary>
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -91,98 +134,13 @@ que marcar como não verificado em vez de aceitar por educação.
 └──────────────────────────────────────────────┘
 ```
 
-Três decisões que moldam o resto:
+- **Chaves isoladas da interface.** Uma chave nova atravessa a ponte uma única vez e é criptografada pelo processo principal. Depois, a interface só pede `{provider, body}` e o processo principal usa a credencial na hora.
+- **APIs usadas:** Anthropic Messages (`/v1/messages`) e OpenAI Chat Completions (`/v1/chat/completions`), em streaming. Os dois formatos de streaming são traduzidos para os mesmos eventos antes de chegar na tela.
+- **Modelos sem lista fixa.** O app consulta `GET /v1/models` nos dois provedores.
+- **Um histórico, duas visões.** Cada modelo recebe a conversa do ponto de vista dele: as próprias falas como `assistant` e as do outro como `user`, com rótulo explícito e marcadas como conteúdo não confiável. Turnos seguidos são unidos para respeitar a alternância exigida pelas APIs.
+- **Testes.** `npm test` abre o app de verdade, com um perfil temporário, e roda cerca de 40 verificações: carregamento sem erro, sandbox, isolamento do Node, escape de HTML, rótulo da resposta do outro modelo, anexos para as duas APIs, chave fora do retorno à interface e criptografia no arquivo.
 
-**As chaves salvas nunca voltam para a interface.** Ao salvar uma nova chave, ela
-atravessa a ponte uma única vez e é imediatamente criptografada pelo processo
-principal. Nas chamadas seguintes, a interface pede `{provider, body}` e o
-processo principal resolve a credencial na hora. O SSE da Anthropic e o da
-OpenAI é traduzido para os mesmos eventos antes de chegar na tela.
-
-**Nada de modelo escrito na unha.** O app consulta `GET /v1/models` nos dois
-provedores e monta as listas com o que a sua conta realmente libera — o que
-significa que ele não envelhece quando sai modelo novo.
-
-**Um histórico, duas visões.** Cada modelo recebe a mesma conversa reprojetada
-do ponto de vista dele: as próprias falas como `assistant`, as do outro como
-`user` com um rótulo explícito, e turnos consecutivos fundidos para respeitar a
-alternância que as APIs exigem.
-
-<a id="secao-5"></a>
-## 🔒 Privacidade
-
-- As chaves são gravadas com `safeStorage`, a criptografia do Windows —
-  legíveis apenas pela conta de usuário que as salvou. Se essa proteção não
-  estiver disponível, o app se recusa a gravar uma chave em texto claro.
-- Conversas ficam em `%APPDATA%\Ponte IA`, no seu computador.
-- A janela roda em sandbox, com `contextIsolation`, sem `nodeIntegration`, com
-  IPC validado e uma CSP que não permite script nem estilo inline.
-- O app envia mensagens e anexos apenas ao provedor ou aos provedores escolhidos
-  no modo da conversa. Na OpenAI, cada chamada inclui `store: false`.
-- Os provedores ainda podem aplicar as próprias políticas de retenção e
-  monitoramento. Não envie dados sigilosos sem avaliar essas políticas.
-
-<a id="secao-6"></a>
-## 🚀 Instalação no Windows
-
-Baixe o instalador ou a versão portátil na página de
-[releases](https://github.com/Barkoski/ponte-ia/releases).
-
-<a id="secao-7"></a>
-## 🚀 Rodando
-
-Para desenvolver ou gerar o pacote, use Node 22.12+ e Windows x64.
-
-```bash
-git clone https://github.com/Barkoski/ponte-ia.git
-cd ponte-ia
-npm ci
-npm start
-```
-
-Para gerar o instalador e a versão portátil em `dist/`:
-
-```bash
-npm run dist
-```
-
-O ícone é gerado por código, sem dependência nenhuma — PNG e ICO escritos byte a
-byte com o `zlib` do próprio Node:
-
-```bash
-npm run icon
-```
-
-### Chaves de API
-
-O app precisa de duas chaves, cobradas por uso:
-
-- **Anthropic** — [console.anthropic.com](https://console.anthropic.com) → API Keys
-- **OpenAI** — [platform.openai.com](https://platform.openai.com) → API keys
-
-Assinaturas do Claude.ai e do ChatGPT Plus **não servem**: são produtos
-separados e nenhum dos dois libera acesso de API.
-
-<a id="secao-8"></a>
-## ✅ Testes
-
-```bash
-npm test
-```
-
-Não é teste de unidade com mock — o script **sobe o aplicativo de verdade** e
-roda mais de 30 verificações dentro de uma janela e de um perfil temporário:
-carregamento sem erro de console, sandbox, isolamento do Node, escape de HTML,
-rotulagem da resposta do outro modelo, anexos para as duas APIs, segredo ausente
-do retorno à interface e criptografia no arquivo.
-
-Dois defeitos reais que esses testes pegaram durante o desenvolvimento: a CSP
-bloqueando estilos aplicados por código (o painel de raciocínio nunca teria
-aparecido) e um escape de barra invertida que fazia todo bloco de código sair
-cru na tela.
-
-<a id="secao-9"></a>
-## 🗂️ Estrutura
+**Estrutura**
 
 ```
 src/
@@ -196,49 +154,33 @@ tools/
   smoke.js      testes de integração com o app rodando
 ```
 
-<a id="secao-10"></a>
-## 📌 Limitações conhecidas
-
-- Só Windows. Nada no código impede macOS ou Linux, mas não foi testado nem
-  empacotado para eles.
-- PDFs e imagens vão aos dois provedores. A aceitação final depende do modelo
-  escolhido e dos limites da conta.
-- Uma conversa por vez. Não há histórico de sessões anteriores — só exportação
-  em Markdown.
-- Até 5 anexos por mensagem, 20 MB por arquivo e 40 MB no total. A conversa
-  local é limitada a 60 MB.
-- Os executáveis publicados ainda não têm assinatura de código; o Windows pode
-  exibir um aviso do SmartScreen.
-
----
+</details>
 
 <details>
 <summary><b>English summary</b></summary>
 
-**Ponte IA** ("AI Bridge") is a Windows desktop app that puts Claude and ChatGPT
-in the same conversation. Ask once, get both answers side by side, then have
-each model read and critique the other's response.
+**Ponte IA** ("AI Bridge") is a Windows desktop app that puts Claude (Anthropic) and ChatGPT (OpenAI GPT models, via API) in the same conversation. Ask once, get both answers side by side, then have each model read and critique the other's response.
 
-Four modes: parallel, debate (Claude → GPT critique → Claude rebuttal),
-consensus (both answer, one synthesizes), and single-model.
+Modes: parallel, debate (Claude → GPT critique → Claude rebuttal), consensus (both answer, one synthesizes), and single-model.
 
-Built with Electron. Saved API keys are encrypted with the Windows `safeStorage`
-API and are not returned to the renderer. HTTP happens in the main process.
-Model lists are fetched from each provider's `/v1/models` rather than hardcoded.
-Integration tests boot the real app with an isolated temporary profile.
+Built with Electron. Saved API keys are encrypted with the Windows `safeStorage` API and are not returned to the renderer. HTTP happens in the main process. Model lists are fetched from each provider's `/v1/models`. Integration tests boot the real app with an isolated temporary profile.
 
-Requires paid API keys from Anthropic and OpenAI — consumer Claude.ai and
-ChatGPT Plus subscriptions do not grant API access.
+Uses your own pay-as-you-go API keys (both for the two-model modes). Consumer Claude.ai and ChatGPT Plus subscriptions do not grant API access.
 
 MIT licensed.
 
 </details>
 
-<a id="documentacao"></a>
-## 📚 Links para continuar
+## 📚 Documentação
 
-- [Mudanças por versão](CHANGELOG.md)
-- [Processo principal](src/main.js)
-- [Ponte da interface](src/preload.js)
-- [Interface](src/renderer.js)
-- [Verificações de integração](tools/smoke.js)
+- [Mudanças por versão (CHANGELOG)](CHANGELOG.md)
+- [Política de segurança](SECURITY.md)
+- Código: [processo principal](src/main.js) · [ponte da interface](src/preload.js) · [interface](src/renderer.js) · [testes de integração](tools/smoke.js)
+
+## 📜 Licença
+
+Distribuído sob a [licença MIT](LICENSE).
+
+---
+
+Criado por [Lucas Barkoski](https://github.com/Barkoski).
