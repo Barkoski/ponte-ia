@@ -1,8 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-label="Ponte IA: Dois modelos na conversa. Cada resposta pode ser confrontada.">
-<rect width="1200" height="380" rx="24" fill="#f3f1eb"/><path d="M895 0H1176Q1200 0 1200 24V356Q1200 380 1176 380H895Z" fill="#67889d"/>
-<circle cx="1070" cy="105" r="130" fill="none" stroke="#fff" stroke-opacity=".18"/><circle cx="1070" cy="105" r="88" fill="none" stroke="#fff" stroke-opacity=".23"/>
-<path d="M970 260h130m-105 22h105m-80 22h80" stroke="#fff" stroke-opacity=".6" stroke-width="4" stroke-linecap="round"/>
-<g font-family="Segoe UI,Arial,sans-serif"><text x="52" y="57" font-size="16" letter-spacing="2.5" font-weight="600" fill="#67889d">APLICATIVO PARA WINDOWS</text>
-<text x="52" y="127" font-size="43" font-weight="700" fill="#304959">Ponte IA</text><text x="52" y="171" font-size="22" fill="#536775">Dois modelos na conversa. Cada resposta pode ser confrontada.</text>
-<path d="M52 202h770" stroke="#d6dbd5"/><text x="52" y="244" font-size="18" fill="#536775">LUCAS BARKOSKI</text><text x="52" y="275" font-size="18" fill="#536775">Ferramentas para ler, organizar e trabalhar melhor.</text>
-<rect x="52" y="309" width="370" height="35" rx="17" fill="#e4e9e3"/><text x="72" y="332" font-size="16" fill="#3e5c5c">github.com/Barkoski</text><text x="947" y="166" font-size="63" font-weight="600" fill="#fff">B.</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-label="Ponte IA: Dois modelos na conversa. Cada resposta pode ser confrontada.">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1e3d"/><stop offset=".6" stop-color="#0f2547"/><stop offset="1" stop-color="#1a1f45"/></linearGradient>
+ <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f1d79c" stop-opacity=".22"/><stop offset="1" stop-color="#f1d79c" stop-opacity="0"/></radialGradient>
+ <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity=".05"/></pattern>
+ <style>
+ .serif{font-family:Georgia,'Times New Roman',serif}.sans{font-family:'Segoe UI',Inter,Arial,sans-serif}.mono{font-family:Consolas,'Cascadia Code',monospace}
+ @keyframes swing{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}.beam{animation:swing 7s ease-in-out infinite}
+ @keyframes dash{to{stroke-dashoffset:-24}}.flow{animation:dash 1.4s linear infinite}
+ @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}.cur{animation:blink 1.1s steps(1) infinite}
+</style></defs>
+ <rect width="1200" height="400" rx="24" fill="url(#bg)"/><rect width="1200" height="400" rx="24" fill="url(#dots)"/>
+ <rect x="1" y="1" width="1198" height="398" rx="23" fill="none" stroke="#d9b26a" stroke-opacity=".28"/>
+ <circle cx="930" cy="200" r="210" fill="url(#glow)"/>
+ <g fill="none" stroke="#d9b26a" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" >
+    <path d="M730 260H1130" stroke-width="4"/>
+    <path d="M780 260Q930 120 1080 260" stroke-width="3.6"/>
+    <path d="M830 260V212M880 260V188M930 260V180M980 260V188M1030 260V212" stroke-width="2"/>
+    <path d="M780 260V310M1080 260V310" stroke-width="5"/>
+    <path d="M725 60h110a16 16 0 0 1 16 16v44a16 16 0 0 1-16 16h-70l-22 20v-20h-18a16 16 0 0 1-16-16v-44a16 16 0 0 1 16-16z" fill="#d9b26a" fill-opacity=".12"/>
+    <path d="M1025 60h110a16 16 0 0 1 16 16v44a16 16 0 0 1-16 16h-18v20l-22-20h-70a16 16 0 0 1-16-16v-44a16 16 0 0 1 16-16z" fill="#d9b26a" fill-opacity=".12"/>
+    <path d="M740 85h70M740 102h45M1040 85h70M1040 102h50" stroke-width="2.4"/></g>
+ <g class="sans"><path d="M64 70h28" stroke="#d9b26a" stroke-width="2"/><text x="102" y="76" font-size="14" font-weight="600" letter-spacing="3" fill="#d9b26a">APLICATIVO PARA WINDOWS</text></g>
+ <text x="62" y="148" class="serif" font-size="60" font-weight="700" fill="#e9eef7">Ponte IA</text>
+ <g class="sans" font-size="22" fill="#a9b6cc"><text x="64" y="196">Dois modelos na conversa.</text><text x="64" y="228">Cada resposta pode ser confrontada.</text></g>
+ <g class="sans"><rect x="64" y="286" width="84" height="32" rx="16" fill="#d9b26a" fill-opacity=".10" stroke="#d9b26a" stroke-opacity=".45"/><text x="106" y="307" font-size="15" fill="#f1d79c" text-anchor="middle">Claude</text><rect x="158" y="286" width="93" height="32" rx="16" fill="#d9b26a" fill-opacity=".10" stroke="#d9b26a" stroke-opacity=".45"/><text x="204.5" y="307" font-size="15" fill="#f1d79c" text-anchor="middle">ChatGPT</text><rect x="261" y="286" width="84" height="32" rx="16" fill="#d9b26a" fill-opacity=".10" stroke="#d9b26a" stroke-opacity=".45"/><text x="303" y="307" font-size="15" fill="#f1d79c" text-anchor="middle">Debate</text><rect x="355" y="286" width="93" height="32" rx="16" fill="#d9b26a" fill-opacity=".10" stroke="#d9b26a" stroke-opacity=".45"/><text x="401.5" y="307" font-size="15" fill="#f1d79c" text-anchor="middle">Síntese</text></g>
+ <text x="64" y="360" class="sans" font-size="13" letter-spacing="2.5" fill="#a9b6cc" fill-opacity=".8">LUCAS BARKOSKI  ·  GITHUB.COM/BARKOSKI</text>
+</svg>
