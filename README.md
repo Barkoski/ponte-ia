@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Ponte IA — Dois modelos na conversa. Cada resposta pode ser confrontada." width="100%">
+  <img src="assets/banner.svg" alt="Ponte IA: Dois modelos na conversa. Cada resposta pode ser confrontada." width="100%">
 </p>
 
 <p align="center">
@@ -128,8 +128,8 @@ npm run icon     # gera o ícone por código, sem dependências
                     │  única superfície exposta
 ┌───────────────────▼──────────────────────────┐
 │  Processo principal (main.js)                │
-│  · chaves de API — safeStorage do Windows    │
-│  · chamadas HTTP — sem restrição de CORS     │
+│  · chaves de API, safeStorage do Windows    │
+│  · chamadas HTTP, sem restrição de CORS     │
 │  · SSE das duas APIs → eventos normalizados  │
 └──────────────────────────────────────────────┘
 ```
@@ -144,9 +144,9 @@ npm run icon     # gera o ícone por código, sem dependências
 
 ```
 src/
-  main.js       processo principal — janela, menu, chaves, HTTP
+  main.js       processo principal, janela, menu, chaves, HTTP
   preload.js    contextBridge: a única ponte entre os dois mundos
-  renderer.js   interface — conversa, markdown, orquestração dos modos
+  renderer.js   interface, conversa, markdown, orquestração dos modos
   index.html
   style.css
 tools/

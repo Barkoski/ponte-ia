@@ -2,7 +2,7 @@
 
 Todas as mudanças relevantes do Ponte IA são registradas aqui.
 
-## 1.1.0 — 2026-07-28
+## 1.1.0: 2026-07-28
 
 ### Segurança e privacidade
 
@@ -36,6 +36,6 @@ Todas as mudanças relevantes do Ponte IA são registradas aqui.
 - Avisos de compatibilidade e respostas parciais aparecem na interface.
 - CI e publicação automatizada dos executáveis para Windows.
 
-## 1.0.0 — 2026-07-27
+## 1.0.0: 2026-07-27
 
 - Primeira versão pública.
